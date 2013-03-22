@@ -26,7 +26,7 @@ class ProductTest < ActiveSupport::TestCase
   end
 
   def new_product(image_url)
-    Product.new=(:title =>"My Book", :description => "Very Good Book To learn Ruby", :price => 1,  :image_url => image_url)
+    Product.new(:title =>"My Book", :description => "Very Good Book To learn Ruby", :price => 1,  :image_url => image_url)
   end
 
   test "image url" do
@@ -34,15 +34,15 @@ class ProductTest < ActiveSupport::TestCase
     bad=%w{free.doc free.gif/more free.gif.more}
 
     ok.each do |name|
-      assert.new_product(name).valid?,"#{name} should not be invalid"
+      assert new_product(name).valid?,"#{name} should not be invalid"
     end
     bad.each do |name|
-      asse.new_product(name).invalid?,"#{name} Should not be valid"
+      assert new_product(name).invalid?,"#{name} Should not be valid"
     end
   end
   test "product is not valid without valid title" do
     product=Product.new(:title => products(:ruby).title, :description => "abc", :price=> "200", :image_url=> "fred.gif")
     assert !product.save
-    assert_equal "has already taken", product.errors[:title].join(';')
+    assert_equal "has already been taken", product.errors[:title].join(';')
   end
 end
