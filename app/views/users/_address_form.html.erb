@@ -1,0 +1,15 @@
+
+
+<p>
+  <%= f.label :address, "Address" %>
+  <%= f.text_area :address, :rows => 3 %><br />
+  <%= f.label :city %>
+  <%= f.text_field :city %><br />
+  <%= f.label :state %>
+  <%= f.text_field :state %><br />
+  <%= f.label :country %>        
+  <%= f.country_select :country, ["Please select country"] %><br />
+   <%= f.link_to_remove "Remove this task" %>
+</p>
+
+

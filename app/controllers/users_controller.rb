@@ -25,8 +25,10 @@ class UsersController < ApplicationController
   # GET /users/new.json
   def new
     @user = User.new
-
+     3.times {@user.addresses.build }
+   # @user.addresses.build
     respond_to do |format|
+
       format.html # new.html.erb
       format.json { render json: @user }
     end
@@ -43,7 +45,7 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
 
     respond_to do |format|
-      if @user.save
+      if @user.save        
         format.html { redirect_to(users_url, notice: "User #{@user.name} was successfully created.") }
         format.json { render json: @user, status: :created, location: @user }
       else
@@ -56,9 +58,10 @@ class UsersController < ApplicationController
   # PUT /users/1
   # PUT /users/1.json
   def update
-    debugger
+   
     @user = User.find(params[:id])
-    if @user.authenticate(params[:name], params[:current_password])    
+
+    if User.authenticate(params[:user][:name], params[:user][:current_password])    
       params[:user].delete :current_password  
 
 

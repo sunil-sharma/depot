@@ -1,4 +1,8 @@
 Depot::Application.routes.draw do
+  ActiveAdmin.routes(self)
+
+  devise_for :admin_users, ActiveAdmin::Devise.config
+
   get 'admin' =>'admin#index'
 
   controller:session do
@@ -14,16 +18,13 @@ Depot::Application.routes.draw do
 
   get "session/destroy"
 
-  resources :users
-
-
-  resources :orders
-
-
-  resources :line_items
-
-
-  resources :carts
+  scope '(:locale)' do
+    resources :users
+    resources :orders
+    resources :line_items
+    resources :carts
+    root :to => 'store#index', :as => 'store'
+  end
 
 
   get "store/index"
@@ -80,7 +81,7 @@ Depot::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => 'store#index', :as => 'store'
+ 
 
 
   # See how all your routes lay out with "rake routes"

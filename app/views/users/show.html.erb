@@ -14,6 +14,21 @@
   <b>Salt:</b>
   <%= @user.salt %>
 </p>
+<h3>Address Details<h3>
+	<% ad=@user.addresses.count %>
+
+	<% @user.addresses.each do |ad| %>
+	<P>
+		<b> Address_Line: </b>
+		<%= ad["address"] %><br/>
+		<b> City:</b>
+		<%= ad["city"] %><br/>
+		<b> State:</b>
+		<%= ad["state"] %></br>
+		<b> Country:</b>
+		<%= ad["country"] %>
+	<p>
+	<% end %>
 
 
 <%= link_to 'Edit', edit_user_path(@user) %> |

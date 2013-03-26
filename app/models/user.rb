@@ -1,18 +1,19 @@
 require 'digest/sha2'
 
 class User < ActiveRecord::Base
+  has_many :addresses,:dependent => :destroy
 	attr_accessor :password
 	after_destroy :ensure_an_admin_remains
 
-  attr_accessible :hashed_password, :name, :salt,:password_confirmation,:password
-  
+  attr_accessible :hashed_password, :name, :salt,:password_confirmation,:password,:addresses_attributes
+  accepts_nested_attributes_for :addresses ,:allow_destroy=> true
   validates :name, :presence => true, :uniqueness=> true
   validates :password,:confirmation => true
   validate :password_must_be_present
   validates :password, presence: true
 
   def self.encrypt_password(password, salt)
-  	Digest::SHA2.hexdigest(password+"wibble"+salt)
+  	Digest::SHA2.hexdigest(password + "wibble" + salt)
   end
 
   def password=(password)
@@ -24,7 +25,7 @@ class User < ActiveRecord::Base
   	end
   end
 
-  def authenticate(name, password)
+  def self.authenticate(name, password)
   	if user = User.find_by_name(name)
   		if user.hashed_password == encrypt_password(password, user.salt)
   			user

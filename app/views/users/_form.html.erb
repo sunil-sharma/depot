@@ -1,5 +1,5 @@
 <div class="depot_form">
-  <%= form_for(@user) do |f| %>
+  <%= nested_form_for(@user) do |f| %>
     <% if @user.errors.any? %>
       <div id="error_explanation">
         <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
@@ -34,6 +34,15 @@
         <%= f.label :password_confirmation,'Confirm' %><br />
         <%= f.password_field :password_confirmation, :size=>40 %>
       </div>
+      <h3>Addresses</h3>
+      <div class="field">
+        <%= f.fields_for :addresses do |builder| %>
+          <%= render "address_form", :f=>builder %>  
+      
+        <%end %>
+        <%= f.link_to_add 'Add', :addresses %>
+       
+     </div>
       
       <div >
         <%= f.submit %>

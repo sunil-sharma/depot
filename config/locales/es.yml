@@ -1,0 +1,17 @@
+es: 
+  layouts: 
+    application: 
+      contact: Contacto
+      home: Inicio
+      news: Noticias
+      questions: Preguntas
+      title: "Publicaciones de Pragmatic"
+  store: 
+    index: 
+      add_html: "Añadir al Cartoo"
+      title_html: "Su Catálogo de Pragmatic"
+  carts:
+    cart:
+      title: "Famfpra re famina"
+      empty: "Vectro bacro"
+      checkout: "Compar"    
